@@ -100,16 +100,22 @@ public class JobData {
         for (HashMap<String, String> row : allJobs) {
 
             Collection<String> values = row.values();
+            ArrayList<String> lowercaseValues = new ArrayList<>();
 
+            for (String thing : values) {
+                lowercaseValues.add(thing.toLowerCase());
+            }
 
-            if (values.contains(value)) {
+            if (lowercaseValues.contains(value.toLowerCase())){
                 if (!jobs.contains(row)){
                     jobs.add(row);
                 }
             }
 
 
+
         }
+
 
         return jobs;
     }
