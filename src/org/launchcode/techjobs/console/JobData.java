@@ -8,9 +8,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by LaunchCode
@@ -75,9 +75,9 @@ public class JobData {
 
         for (HashMap<String, String> row : allJobs) {
 
-            String aValue = row.get(column);
+            String aValue = row.get(column).toLowerCase();
 
-            if (aValue.contains(value)) {
+            if (aValue.contains(value.toLowerCase())) {
                 jobs.add(row);
             }
         }
@@ -97,23 +97,15 @@ public class JobData {
         //create an empty ArrayList of HashMaps to hold any results
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
-        for (HashMap<String, String> row : allJobs) {
 
-            Collection<String> values = row.values();
-            ArrayList<String> lowercaseValues = new ArrayList<>();
-
-            for (String thing : values) {
-                lowercaseValues.add(thing.toLowerCase());
-            }
-
-            if (lowercaseValues.contains(value.toLowerCase())){
-                if (!jobs.contains(row)){
-                    jobs.add(row);
+        for (HashMap<String, String> job : allJobs){
+            for (Map.Entry<String, String> jobHash : job.entrySet()){
+                if (jobHash.getValue().toLowerCase().contains(value.toLowerCase())){
+                    if (!jobs.contains(job)){
+                        jobs.add(job);
+                    }
                 }
             }
-
-
-
         }
 
 
